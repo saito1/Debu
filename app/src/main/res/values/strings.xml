@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">@string/debu</string>
+    <string name="contatos">Organizador de contatinhos</string>
+    <string name="username">Nome de usuário</string>
+    <string name="password">Senha</string>
+    <string name="sign_in">Entrar</string>
+    <string name="invalid_username">Usuário inválido</string>
+    <string name="invalid_password">Senha inválida</string>
+    <string name="debu">Debu</string>
+    <string name="title_activity_lista_contatos">ListaContatosActivity</string>
+</resources>
