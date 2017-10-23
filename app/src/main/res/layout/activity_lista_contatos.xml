@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.edu.rafaelsaito.debu.ListaContatosActivity">
+    tools:context="com.edu.rafaelsaito.debu.ListaContatos_Scene.ListaContatosActivity">
 
     <ListView
         android:id="@+id/lista_contatos"

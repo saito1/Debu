@@ -1,6 +1,8 @@
-package com.edu.rafaelsaito.debu;
+package com.edu.rafaelsaito.debu.ListaContatos_Scene;
 
 import android.content.Intent;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -12,40 +14,36 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.edu.rafaelsaito.debu.CadastroContatoActivity;
 import com.edu.rafaelsaito.debu.DAO.ContatoDAO;
+import com.edu.rafaelsaito.debu.Main_Scene.MainActivity;
+import com.edu.rafaelsaito.debu.Main_Scene.MainPresenter;
 import com.edu.rafaelsaito.debu.Modelo.Contato;
+import com.edu.rafaelsaito.debu.R;
 
 import java.util.List;
 
-public class ListaContatosActivity extends AppCompatActivity {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnItemClick;
+import butterknife.OnTextChanged;
 
-    private ListView listaContatos;
+public class ListaContatosActivity extends AppCompatActivity implements ListaContatosView {
+
+    @BindView(R.id.lista_contatos) ListView listaContatos;
+    @BindView(R.id.botao_novo_contato) Button botaoNovoContato;
+
+    ListaContatosPresenter listaContatosPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_contatos);
-        listaContatos = (ListView) findViewById(R.id.lista_contatos);
 
-        listaContatos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Contato contato = (Contato) listaContatos.getItemAtPosition(position);
-                Intent intentVaiProFormulario = new Intent(ListaContatosActivity.this, CadastroContatoActivity.class);
-                intentVaiProFormulario.putExtra("contato", contato);
-                startActivity(intentVaiProFormulario);
-            }
-        });
-        registerForContextMenu(listaContatos);
+        ButterKnife.bind(this);
 
-        Button novo_contato = (Button) findViewById(R.id.botao_novo_contato);
-        novo_contato.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                Intent intentVaiPraCadastro = new Intent(ListaContatosActivity.this, CadastroContatoActivity.class);
-                startActivity(intentVaiPraCadastro);
-            }
-        });
+        listaContatosPresenter = new ListaContatosPresenter(this);
     }
 
     @Override
@@ -81,5 +79,30 @@ public class ListaContatosActivity extends AppCompatActivity {
 
         ArrayAdapter<Contato> adapter = new ArrayAdapter<Contato>(this, android.R.layout.simple_list_item_1, contatos);
         listaContatos.setAdapter(adapter);
+    }
+
+    @OnClick(R.id.botao_novo_contato)
+    public void cadastro(){
+        listaContatosPresenter.cadastro();
+    }
+
+    @Override
+    public void cadastrarContato() {
+        Intent intentVaiPraCadastro = new Intent(ListaContatosActivity.this, CadastroContatoActivity.class);
+        startActivity(intentVaiPraCadastro);
+    }
+
+    @OnItemClick(R.id.lista_contatos)
+    public void clicarItem(int position) {
+        listaContatosPresenter.clicarItem(position);
+    }
+
+    @Override
+    public void abrirItem(int position) {
+        Contato contato = (Contato) listaContatos.getItemAtPosition(position);
+        Intent intentVaiProFormulario = new Intent(ListaContatosActivity.this, CadastroContatoActivity.class);
+        intentVaiProFormulario.putExtra("contato", contato);
+        startActivity(intentVaiProFormulario);
+        registerForContextMenu(listaContatos);
     }
 }

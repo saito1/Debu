@@ -8,4 +8,7 @@
     <string name="invalid_password">Senha inválida</string>
     <string name="debu">Debu</string>
     <string name="title_activity_lista_contatos">ListaContatosActivity</string>
+    <string name="invalid_address" />
+    <string name="invalid_email" />
+    <string name="invalid_telephone" />
 </resources>

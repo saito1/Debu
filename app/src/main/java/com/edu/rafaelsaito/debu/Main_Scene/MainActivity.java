@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 
-import com.edu.rafaelsaito.debu.ListaContatosActivity;
+import com.edu.rafaelsaito.debu.ListaContatos_Scene.ListaContatosActivity;
 import com.edu.rafaelsaito.debu.R;
 
 import butterknife.BindView;

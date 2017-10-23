@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="text_input_layout_address" type="id" />
+    <item name="edit_text_address" type="id" />
+    <item name="edit_text_email" type="id" />
+    <item name="text_input_layout_telephone" type="id" />
+    <item name="edit_text_telephone" type="id" />
+</resources>
