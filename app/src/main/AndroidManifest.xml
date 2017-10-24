@@ -19,7 +19,7 @@
         <activity android:name=".ListaContatos_Scene.ListaContatosActivity"
             android:theme="@style/AppTheme"
             android:label="Lista de Contatos"/>
-        <activity android:name=".CadastroContatoActivity"></activity>
+        <activity android:name=".CadastroContato_Scene.CadastroContatoActivity"></activity>
     </application>
 
 </manifest>

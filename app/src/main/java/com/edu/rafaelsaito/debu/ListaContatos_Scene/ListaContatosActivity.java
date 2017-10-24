@@ -1,10 +1,8 @@
 package com.edu.rafaelsaito.debu.ListaContatos_Scene;
 
 import android.content.Intent;
-import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,11 +12,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.edu.rafaelsaito.debu.CadastroContatoActivity;
-import com.edu.rafaelsaito.debu.DAO.ContatoDAO;
-import com.edu.rafaelsaito.debu.Main_Scene.MainActivity;
-import com.edu.rafaelsaito.debu.Main_Scene.MainPresenter;
+import com.edu.rafaelsaito.debu.CadastroContato_Scene.CadastroContatoActivity;
 import com.edu.rafaelsaito.debu.Modelo.Contato;
+import com.edu.rafaelsaito.debu.DAO.ContatoDAO;
 import com.edu.rafaelsaito.debu.R;
 
 import java.util.List;
@@ -27,7 +23,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
-import butterknife.OnTextChanged;
 
 public class ListaContatosActivity extends AppCompatActivity implements ListaContatosView {
 
