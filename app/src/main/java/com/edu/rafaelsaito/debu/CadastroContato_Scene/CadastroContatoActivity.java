@@ -9,12 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
-import android.widget.Button;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.edu.rafaelsaito.debu.DAO.ContatoDAO;
-import com.edu.rafaelsaito.debu.Modelo.CadastroHelper;
-import com.edu.rafaelsaito.debu.Modelo.Contato;
 import com.edu.rafaelsaito.debu.R;
 
 import butterknife.BindView;
@@ -32,11 +30,6 @@ public class CadastroContatoActivity extends AppCompatActivity implements Cadast
     @BindView(R.id.email) TextInputEditText nome_responsavelEditText;
     @BindView(R.id.text_input_layout_phone) TextInputLayout telefoneTextInputLayout;
     @BindView(R.id.telefone_contato) TextInputEditText telefoneEditText;
-    @BindView(R.id.botao_salvar) Button botaoSalvar;
-    @BindView(R.id.botao_camera) Button botaoCamera;
-    @BindView(R.id.botao_mapa) Button botaoMapa;
-
-    private CadastroHelper helper;
 
     CadastroContatoPresenter cadastroContatoPresenter;
 
@@ -49,13 +42,11 @@ public class CadastroContatoActivity extends AppCompatActivity implements Cadast
 
         cadastroContatoPresenter = new CadastroContatoPresenter(this);
 
-        helper = new CadastroHelper(this);
 
         final Intent intent = getIntent();
-        Contato contato = (Contato) intent.getSerializableExtra("contato");
-        if (contato != null) {
-            helper.preencheCadastro(contato);
-        }
+        long id_contato = intent.getLongExtra("contato", -1);
+
+        cadastroContatoPresenter.getInformacoes(id_contato);
     }
 
     @OnClick(R.id.botao_camera)
@@ -91,9 +82,27 @@ public class CadastroContatoActivity extends AppCompatActivity implements Cadast
         }
     }
 
-    @OnClick(R.id.botao_salvar)
+    /*@OnClick(R.id.botao_salvar)
     public void salvarContato(){
         cadastroContatoPresenter.salvarContato();
+    }*/
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_contato, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_salvar:
+                cadastroContatoPresenter.cadastrarContato();
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
     }
 
     @Override
@@ -119,18 +128,18 @@ public class CadastroContatoActivity extends AppCompatActivity implements Cadast
             telefoneTextInputLayout.setError("Telefone inválido");
             return;
         }
-        Contato contato = helper.getContato();
-        ContatoDAO dao = new ContatoDAO(CadastroContatoActivity.this);
+        //Contato contato = helper.getContato();
+//        ContatoDAO dao = new ContatoDAO(CadastroContatoActivity.this);
+//
+//        if (contato.getId() != null) {
+//            dao.altera(contato);
+//        } else {
+//            dao.insere(contato);
+//        }
 
-        if (contato.getId() != null) {
-            dao.altera(contato);
-        } else {
-            dao.insere(contato);
-        }
-
-        dao.close();
-        Toast.makeText(CadastroContatoActivity.this, "Contato " + contato.getNome() + " salvo!", Toast.LENGTH_SHORT).show();
-        finish();
+//        dao.close();
+       Toast.makeText(CadastroContatoActivity.this, "Contato salvo!", Toast.LENGTH_SHORT).show();
+//        finish();
     }
 
     @OnTextChanged(R.id.nome_contato)

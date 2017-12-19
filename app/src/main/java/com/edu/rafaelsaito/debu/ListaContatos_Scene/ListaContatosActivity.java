@@ -3,31 +3,24 @@ package com.edu.rafaelsaito.debu.ListaContatos_Scene;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.ContextMenu;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import com.edu.rafaelsaito.debu.CadastroContato_Scene.CadastroContatoActivity;
-import com.edu.rafaelsaito.debu.Modelo.Contato;
-import com.edu.rafaelsaito.debu.DAO.ContatoDAO;
+import com.edu.rafaelsaito.debu.Modelo.ContatoEntity;
 import com.edu.rafaelsaito.debu.R;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.OnItemClick;
 
 public class ListaContatosActivity extends AppCompatActivity implements ListaContatosView {
 
-    @BindView(R.id.lista_contatos) ListView listaContatos;
-    @BindView(R.id.botao_novo_contato) Button botaoNovoContato;
+    @BindView(R.id.rv_contatos) RecyclerView rvContatos;
 
     ListaContatosPresenter listaContatosPresenter;
 
@@ -39,65 +32,50 @@ public class ListaContatosActivity extends AppCompatActivity implements ListaCon
         ButterKnife.bind(this);
 
         listaContatosPresenter = new ListaContatosPresenter(this);
+        listaContatosPresenter.carregaLista();
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        carregaLista();
+    public void carregaLista(final List<ContatoEntity> contatoList) {
+
+        final ListaContatosAdapter listaContatosAdapter = new ListaContatosAdapter(contatoList, this);
+
+        listaContatosAdapter.setOnRecyclerViewSelected(new OnRecyclerViewSelected() {
+           @Override
+           public void onClick(View view, int position) {
+               Intent openDetailActivity = new Intent(ListaContatosActivity.this, CadastroContatoActivity.class);
+               ContatoEntity contatoEntity = listaContatosPresenter.getContatoId(position);
+               openDetailActivity.putExtra("contato", contatoEntity);
+               startActivity(openDetailActivity);
+           }
+       });
+        rvContatos.setAdapter(listaContatosAdapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        rvContatos.setLayoutManager(layoutManager);
     }
 
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, final ContextMenu.ContextMenuInfo menuInfo) {
-        MenuItem deletar = menu.add("Deletar");
-        deletar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-                Contato contato = (Contato) listaContatos.getItemAtPosition(info.position);
-                Toast.makeText(ListaContatosActivity.this, "Deletar o contato " + contato.getNome(), Toast.LENGTH_SHORT).show();
-                ContatoDAO dao = new ContatoDAO(ListaContatosActivity.this);
-                dao.deleta(contato);
-                dao.close();
-                carregaLista();
-
-                return false;
-            }
-        });
-    }
-
-    private void carregaLista() {
-
-        ContatoDAO dao = new ContatoDAO(this);
-        List<Contato> contatos = dao.buscaContato();
-        dao.close();
-
-        ArrayAdapter<Contato> adapter = new ArrayAdapter<Contato>(this, android.R.layout.simple_list_item_1, contatos);
-        listaContatos.setAdapter(adapter);
-    }
-
-    @OnClick(R.id.botao_novo_contato)
-    public void cadastro(){
-        listaContatosPresenter.cadastro();
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_cadastro, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
-    public void cadastrarContato() {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_add:
+                listaContatosPresenter.cadastrarContato();
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
+
+    @Override
+    public void cadastro() {
         Intent intentVaiPraCadastro = new Intent(ListaContatosActivity.this, CadastroContatoActivity.class);
         startActivity(intentVaiPraCadastro);
     }
 
-    @OnItemClick(R.id.lista_contatos)
-    public void clicarItem(int position) {
-        listaContatosPresenter.clicarItem(position);
-    }
-
-    @Override
-    public void abrirItem(int position) {
-        Contato contato = (Contato) listaContatos.getItemAtPosition(position);
-        Intent intentVaiProFormulario = new Intent(ListaContatosActivity.this, CadastroContatoActivity.class);
-        intentVaiProFormulario.putExtra("contato", contato);
-        startActivity(intentVaiProFormulario);
-        registerForContextMenu(listaContatos);
-    }
 }

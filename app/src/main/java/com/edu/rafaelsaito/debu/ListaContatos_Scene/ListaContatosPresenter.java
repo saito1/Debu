@@ -1,10 +1,9 @@
 package com.edu.rafaelsaito.debu.ListaContatos_Scene;
 
-import android.text.TextUtils;
-import android.view.View;
-import android.widget.AdapterView;
+import com.edu.rafaelsaito.debu.Modelo.ContatoEntity;
+import com.edu.rafaelsaito.debu.Modelo.ListaContatoEntity;
 
-import com.edu.rafaelsaito.debu.Main_Scene.MainView;
+import java.util.List;
 
 /**
  * Created by mariana on 23/10/17.
@@ -12,17 +11,28 @@ import com.edu.rafaelsaito.debu.Main_Scene.MainView;
 
 public class ListaContatosPresenter {
 
-    ListaContatosView listaContatosView = null;
+    ListaContatosView listaContatosView;
+    ListaContatoEntity listaContatoEntity;
+    private List<ContatoEntity> contatoList;
 
     public ListaContatosPresenter (ListaContatosView listaContatosView){
         this.listaContatosView = listaContatosView;
     }
 
-    public void cadastro(){
-        listaContatosView.cadastrarContato();
+//    public void clicarItem(int position){
+//        listaContatosView.abrirItem(position);
+//    }
+
+    public void cadastrarContato() {
+        listaContatosView.cadastro();
     }
 
-    public void clicarItem(int position){
-        listaContatosView.abrirItem(position);
+    public void carregaLista() {
+        if(listaContatoEntity.getContatos() != null)
+            listaContatosView.carregaLista(listaContatoEntity.getContatos());
+    }
+
+    ContatoEntity getContatoId(int position) {
+        return listaContatoEntity.getContatos().get(position);
     }
 }

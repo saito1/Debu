@@ -22,9 +22,10 @@ public class CadastroContatoPresenter {
         cadastroContatoView.mapa();
     }
 
-    public void salvarContato(){
+    public void cadastrarContato() {
         cadastroContatoView.salvar();
     }
 
-
+    public void getInformacoes(long id_contato) {
+    }
 }

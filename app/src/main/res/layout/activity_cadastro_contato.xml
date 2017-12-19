@@ -10,7 +10,7 @@
         android:focusableInTouchMode="true"
         android:orientation="vertical">
 
-        <Button
+        <ImageButton
             android:id="@+id/botao_camera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -79,6 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
+                android:layout_marginRight="15dp"
                 android:background="@drawable/havelock_pink_rounded_corners"
                 android:fontFamily="sans-serif-bold"
                 android:text="Mapa"
@@ -132,21 +133,6 @@
                 android:imeOptions="actionNext" />
 
         </android.support.design.widget.TextInputLayout>
-
-        <Button
-            android:id="@+id/botao_salvar"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginBottom="33dp"
-            android:layout_marginLeft="29dp"
-            android:layout_marginRight="29dp"
-            android:layout_marginTop="48dp"
-            android:background="@drawable/havelock_pink_rounded_corners"
-            android:fontFamily="sans-serif-bold"
-            android:text="Salvar"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="17sp" />
 
 
     </LinearLayout>

@@ -21,9 +21,11 @@ public class MainPresenter {
         }else if(TextUtils.isEmpty(password)){
             //set erro password
             mainView.setErrorPassword();
-        }else{
+        }else if(TextUtils.equals(password, username)){
             //efetuar login
             mainView.efetuaLogin();
+        }else{
+            mainView.setErrorLogin();
         }
     }
 }
