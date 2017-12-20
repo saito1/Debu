@@ -81,14 +81,11 @@ public class ListaContatosAdapter extends RecyclerView.Adapter<ListaContatosAdap
     //mapeamento dos componentes da view
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.name_contato)
-        TextView contactName;
+        @BindView(R.id.name_contato) TextView contactName;
 
-        @BindView(R.id.image_view)
-        ImageView contactImage;
+        @BindView(R.id.image_view) ImageView contactImage;
 
-        @BindView(R.id.tel_contato)
-        TextView contactTel;
+        @BindView(R.id.tel_contato) TextView contactTel;
 
         public ViewHolder(View itemView) {
             super(itemView);

@@ -10,4 +10,6 @@ public interface CadastroContatoView {
     void camera();
     void mapa();
     void salvar();
+    void showLoading();
+    void hideLoading();
 }

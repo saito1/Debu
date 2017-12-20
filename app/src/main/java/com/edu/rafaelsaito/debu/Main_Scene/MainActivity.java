@@ -5,7 +5,9 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.edu.rafaelsaito.debu.CadastroContato_Scene.CadastroContatoActivity;
@@ -23,6 +25,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @BindView(R.id.edit_text_username) TextInputEditText usernameEditText;
     @BindView(R.id.text_input_layout_password) TextInputLayout passwordTextInputLayout;
     @BindView(R.id.edit_text_password) TextInputEditText passwordEditText;
+    @BindView(R.id.linear_layout_loading) LinearLayout loadingLayout;
+
 
     MainPresenter mainPresenter;
 
@@ -76,5 +80,15 @@ public class MainActivity extends AppCompatActivity implements MainView {
     public void setErrorLogin() {
         Toast toast = Toast.makeText(MainActivity.this, "Usuário e senha incorretos", Toast.LENGTH_LONG);
         toast.show();
+    }
+
+    @Override
+    public void showLoading() {
+        loadingLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideLoading() {
+        loadingLayout.setVisibility(View.GONE);
     }
 }

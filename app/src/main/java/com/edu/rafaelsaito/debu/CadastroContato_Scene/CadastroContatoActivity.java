@@ -17,7 +17,9 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -48,6 +50,8 @@ public class CadastroContatoActivity extends AppCompatActivity implements Cadast
     @BindView(R.id.text_input_layout_phone) TextInputLayout telefoneTextInputLayout;
     @BindView(R.id.telefone_contato) TextInputEditText telefoneEditText;
     @BindView(R.id.botao_camera) ImageButton imagem;
+    @BindView(R.id.linear_layout_loading) LinearLayout loadingLayout;
+
 
     CadastroContatoPresenter cadastroContatoPresenter;
     String selectedImagePath;
@@ -176,6 +180,7 @@ public class CadastroContatoActivity extends AppCompatActivity implements Cadast
         contato.setName(nameEditText.getText().toString());
         contato.setAddress(enderecoEditText.getText().toString());
         contato.setTelephone(telefoneEditText.getText().toString());
+        contato.setEmail(emailEditText.getText().toString());
         contato.setImage(caminho_foto);
 
         if(contatoListEntity == null)
@@ -211,5 +216,16 @@ public class CadastroContatoActivity extends AppCompatActivity implements Cadast
     public void checaTelefone(){
         telefoneTextInputLayout.setErrorEnabled(false);
         telefoneTextInputLayout.setError("");
+    }
+
+
+    @Override
+    public void showLoading() {
+        loadingLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideLoading() {
+        loadingLayout.setVisibility(View.GONE);
     }
 }

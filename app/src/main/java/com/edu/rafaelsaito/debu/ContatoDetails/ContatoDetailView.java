@@ -8,4 +8,6 @@ import com.edu.rafaelsaito.debu.Modelo.ContatoEntity;
 
 public interface ContatoDetailView {
     void showDetail(ContatoEntity contatoEntity);
+    void showLoading();
+    void hideLoading();
 }

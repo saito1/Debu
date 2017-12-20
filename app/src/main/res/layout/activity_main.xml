@@ -93,6 +93,8 @@
 
     </LinearLayout>
 
+    <include layout="@layout/custom_progress_bar" />
+
 </RelativeLayout>
 
 

@@ -17,6 +17,8 @@ public class ContatoDetailPresenter {
     private ContatoEntity contatoDetails;
 
     public void getContatoDetails(ContatoEntity contatoEntity) {
+        contatoDetailView.showLoading();
         contatoDetailView.showDetail(contatoEntity);
+        contatoDetailView.hideLoading();
     }
 }

@@ -19,14 +19,20 @@ public class CadastroContatoPresenter {
     }
 
     public void ligarCamera(){
+        cadastroContatoView.showLoading();
         cadastroContatoView.camera();
+        cadastroContatoView.hideLoading();
     }
 
     public void abrirMapa(){
+        cadastroContatoView.showLoading();
         cadastroContatoView.mapa();
+        cadastroContatoView.hideLoading();
     }
 
     public void cadastrarContato() {
+        cadastroContatoView.showLoading();
         cadastroContatoView.salvar();
+        cadastroContatoView.hideLoading();
     }
 }

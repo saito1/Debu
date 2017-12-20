@@ -15,6 +15,7 @@ public class MainPresenter {
     }
 
     public void login(String username, String password){
+        mainView.showLoading();
         if(TextUtils.isEmpty(username)){
             //set erro username
             mainView.setErrorUsername();
@@ -27,5 +28,6 @@ public class MainPresenter {
         }else{
             mainView.setErrorLogin();
         }
+        mainView.hideLoading();
     }
 }

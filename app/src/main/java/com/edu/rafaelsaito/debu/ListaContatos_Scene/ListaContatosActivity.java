@@ -3,12 +3,14 @@ package com.edu.rafaelsaito.debu.ListaContatos_Scene;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.edu.rafaelsaito.debu.CadastroContato_Scene.CadastroContatoActivity;
 import com.edu.rafaelsaito.debu.ContatoDetails.ContatoDetailActivity;
@@ -25,6 +27,8 @@ import butterknife.ButterKnife;
 public class ListaContatosActivity extends AppCompatActivity implements ListaContatosView {
 
     @BindView(R.id.rv_contatos) RecyclerView rvContatos;
+    @BindView(R.id.linear_layout_loading) LinearLayout loadingLayout;
+
 
     ListaContatosPresenter listaContatosPresenter;
 
@@ -62,8 +66,13 @@ public class ListaContatosActivity extends AppCompatActivity implements ListaCon
            }
        });
         rvContatos.setAdapter(listaContatosAdapter);
+
+        // criação do gerenciador de layouts
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, layoutManager.getOrientation());
+
         rvContatos.setLayoutManager(layoutManager);
+        rvContatos.addItemDecoration(dividerItemDecoration);
     }
 
     @Override

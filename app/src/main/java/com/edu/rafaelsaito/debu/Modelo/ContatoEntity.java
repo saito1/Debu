@@ -7,6 +7,7 @@ public class ContatoEntity implements Serializable{
     private int id;
     private String name;
     private String address;
+    private String email;
     private String telephone;
     private String image;
 
@@ -48,5 +49,13 @@ public class ContatoEntity implements Serializable{
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

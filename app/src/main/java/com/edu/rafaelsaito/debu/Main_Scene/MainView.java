@@ -8,7 +8,8 @@ public interface MainView {
     void setErrorUsername();
     void setErrorPassword();
     void efetuaLogin();
-
     void setErrorLogin();
+    void showLoading();
+    void hideLoading();
 }
 
