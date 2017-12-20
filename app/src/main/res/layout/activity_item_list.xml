@@ -16,7 +16,7 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
-        android:background="@mipmap/ic_launcher_round"
+        android:background="@drawable/icone"
         android:contentDescription="@null" />
 
     <LinearLayout

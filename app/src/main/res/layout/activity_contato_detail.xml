@@ -15,10 +15,10 @@
                 android:id="@+id/image_view_header"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
-                android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
-                android:background="@mipmap/ic_launcher_round"
-                android:contentDescription="@null" />
+                android:layout_centerHorizontal="true"
+                android:contentDescription="@null"
+                android:background="@drawable/icone" />
 
             <TextView
                 android:id="@+id/text_view_nome"
@@ -105,7 +105,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="16dp"
-                    android:background="@android:drawable/ic_menu_send"
+                    android:background="@android:drawable/sym_action_email"
                     android:contentDescription="@null" />
 
                 <TextView
