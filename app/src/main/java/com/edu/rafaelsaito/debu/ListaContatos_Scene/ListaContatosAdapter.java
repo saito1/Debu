@@ -1,14 +1,22 @@
 package com.edu.rafaelsaito.debu.ListaContatos_Scene;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.edu.rafaelsaito.debu.Modelo.ContatoEntity;
+import com.edu.rafaelsaito.debu.Modelo.ContatoListEntity;
 import com.edu.rafaelsaito.debu.R;
 import com.squareup.picasso.Picasso;
 
@@ -23,12 +31,12 @@ import butterknife.OnLongClick;
 
 public class ListaContatosAdapter extends RecyclerView.Adapter<ListaContatosAdapter.ViewHolder> {
 
-    private List<ContatoEntity> contatoList;
+    private ContatoListEntity contatoList;
     OnRecyclerViewSelected onRecyclerViewSelected;
     private Context context;
 
     //Construtor que recebe a lista
-    ListaContatosAdapter(List<ContatoEntity> contatoList, Context context) {
+    ListaContatosAdapter(ContatoListEntity contatoList, Context context) {
         this.contatoList = contatoList;
         this.context = context;
     }
@@ -36,27 +44,38 @@ public class ListaContatosAdapter extends RecyclerView.Adapter<ListaContatosAdap
     //infla o componente view
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_lista_contatos, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_item_list, parent, false);
         return new ViewHolder(v);
     }
 
     //seta os dados nas views
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        ContatoEntity contatoEntity = contatoList.get(position);
+    public void onBindViewHolder(final ViewHolder holder, int position) {
+        ContatoEntity contatoEntity = contatoList.getContatos().get(position);
         holder.contactName.setText(contatoEntity.getName());
         holder.contactTel.setText(contatoEntity.getTelephone());
-        Picasso.with(context)
+
+        Log.d("caminho da imagem", "aqui " + contatoEntity.getImage());
+
+        final Context context = holder.contactImage.getContext();
+        final ImageView img = holder.contactImage;
+        Glide.with(context)
                 .load(contatoEntity.getImage())
-                .centerCrop()
-                .fit()
-                .into(holder.contactImage);
+                .asBitmap().centerCrop()
+                .into(new BitmapImageViewTarget(holder.contactImage){
+                    @Override
+                    protected  void  setResource(Bitmap resource){
+                        RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(context.getResources(),resource);
+                        circularBitmapDrawable.setCircular(true);
+                        img.setImageDrawable(circularBitmapDrawable);
+                    }
+                });
     }
 
     //retorna o tamanho da lista
     @Override
     public int getItemCount() {
-        return contatoList.size();
+        return contatoList.getContatos().size();
     }
 
     //mapeamento dos componentes da view
@@ -81,18 +100,7 @@ public class ListaContatosAdapter extends RecyclerView.Adapter<ListaContatosAdap
         void onItemClick(View view){
             if(onRecyclerViewSelected != null)
                 onRecyclerViewSelected.onClick(view, getAdapterPosition());
-
         }
-
-        //seta o clique longo
-//        @OnLongClick(R.id.container)
-//        boolean onLongItemClick(View view){
-//            if(onRecyclerViewSelected != null)
-//                onRecyclerViewSelected.onLongClick(view, getAdapterPosition());
-//
-//            return true;
-//        }
-
     }
 
     public void setOnRecyclerViewSelected(OnRecyclerViewSelected onRecyclerViewSelected){

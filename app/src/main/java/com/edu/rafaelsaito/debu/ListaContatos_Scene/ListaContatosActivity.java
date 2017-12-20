@@ -5,14 +5,18 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.edu.rafaelsaito.debu.CadastroContato_Scene.CadastroContatoActivity;
+import com.edu.rafaelsaito.debu.ContatoDetails.ContatoDetailActivity;
 import com.edu.rafaelsaito.debu.Modelo.ContatoEntity;
+import com.edu.rafaelsaito.debu.Modelo.ContatoListEntity;
 import com.edu.rafaelsaito.debu.R;
 
+import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
@@ -24,6 +28,8 @@ public class ListaContatosActivity extends AppCompatActivity implements ListaCon
 
     ListaContatosPresenter listaContatosPresenter;
 
+    ContatoListEntity listcontatos;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,20 +38,26 @@ public class ListaContatosActivity extends AppCompatActivity implements ListaCon
         ButterKnife.bind(this);
 
         listaContatosPresenter = new ListaContatosPresenter(this);
-        listaContatosPresenter.carregaLista();
+
+
+        if(this.getIntent().getExtras() != null)
+            listcontatos = (ContatoListEntity) this.getIntent().getSerializableExtra("contato");
+
+        if(listcontatos!= null) {
+            listaContatosPresenter.carregaLista(listcontatos);
+        }
     }
 
     @Override
-    public void carregaLista(final List<ContatoEntity> contatoList) {
+    public void carregaLista(final ContatoListEntity contatoList) {
 
-        final ListaContatosAdapter listaContatosAdapter = new ListaContatosAdapter(contatoList, this);
-
+        ListaContatosAdapter listaContatosAdapter = new ListaContatosAdapter(contatoList, this);
         listaContatosAdapter.setOnRecyclerViewSelected(new OnRecyclerViewSelected() {
+
            @Override
            public void onClick(View view, int position) {
-               Intent openDetailActivity = new Intent(ListaContatosActivity.this, CadastroContatoActivity.class);
-               ContatoEntity contatoEntity = listaContatosPresenter.getContatoId(position);
-               openDetailActivity.putExtra("contato", contatoEntity);
+               Intent openDetailActivity = new Intent(ListaContatosActivity.this, ContatoDetailActivity.class);
+               openDetailActivity.putExtra("contato", (Serializable) contatoList.getContatos().get(position));
                startActivity(openDetailActivity);
            }
        });
@@ -65,17 +77,15 @@ public class ListaContatosActivity extends AppCompatActivity implements ListaCon
         switch (item.getItemId()) {
             case R.id.action_add:
                 listaContatosPresenter.cadastrarContato();
-
             default:
                 return super.onOptionsItemSelected(item);
         }
-
     }
 
     @Override
     public void cadastro() {
         Intent intentVaiPraCadastro = new Intent(ListaContatosActivity.this, CadastroContatoActivity.class);
+        intentVaiPraCadastro.putExtra("contatos",(Serializable) listcontatos);
         startActivity(intentVaiPraCadastro);
     }
-
 }

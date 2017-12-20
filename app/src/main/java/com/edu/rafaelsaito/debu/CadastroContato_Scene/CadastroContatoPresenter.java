@@ -1,6 +1,9 @@
 package com.edu.rafaelsaito.debu.CadastroContato_Scene;
 
-import com.edu.rafaelsaito.debu.Main_Scene.MainView;
+import com.edu.rafaelsaito.debu.Modelo.ContatoEntity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mariana on 23/10/17.
@@ -8,7 +11,8 @@ import com.edu.rafaelsaito.debu.Main_Scene.MainView;
 
 public class CadastroContatoPresenter {
 
-    CadastroContatoView cadastroContatoView = null;
+    CadastroContatoView cadastroContatoView;
+    private List<ContatoEntity> contatoList;
 
     public CadastroContatoPresenter(CadastroContatoView cadastroContatoView){
         this.cadastroContatoView = cadastroContatoView;
@@ -24,8 +28,5 @@ public class CadastroContatoPresenter {
 
     public void cadastrarContato() {
         cadastroContatoView.salvar();
-    }
-
-    public void getInformacoes(long id_contato) {
     }
 }

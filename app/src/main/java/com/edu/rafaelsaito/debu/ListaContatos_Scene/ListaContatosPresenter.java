@@ -1,8 +1,11 @@
 package com.edu.rafaelsaito.debu.ListaContatos_Scene;
 
-import com.edu.rafaelsaito.debu.Modelo.ContatoEntity;
-import com.edu.rafaelsaito.debu.Modelo.ListaContatoEntity;
+import android.util.Log;
 
+import com.edu.rafaelsaito.debu.Modelo.ContatoEntity;
+import com.edu.rafaelsaito.debu.Modelo.ContatoListEntity;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,28 +14,28 @@ import java.util.List;
 
 public class ListaContatosPresenter {
 
-    ListaContatosView listaContatosView;
-    ListaContatoEntity listaContatoEntity;
-    private List<ContatoEntity> contatoList;
+    private ListaContatosView listaContatosView;
+    private ContatoListEntity contatoList = new ContatoListEntity();
 
     public ListaContatosPresenter (ListaContatosView listaContatosView){
         this.listaContatosView = listaContatosView;
     }
 
-//    public void clicarItem(int position){
-//        listaContatosView.abrirItem(position);
-//    }
-
     public void cadastrarContato() {
         listaContatosView.cadastro();
     }
 
-    public void carregaLista() {
-        if(listaContatoEntity.getContatos() != null)
-            listaContatosView.carregaLista(listaContatoEntity.getContatos());
+    public void carregaLista (ContatoListEntity contatos) {
+        if(contatos != null)
+            listaContatosView.carregaLista(contatos);
     }
 
     ContatoEntity getContatoId(int position) {
-        return listaContatoEntity.getContatos().get(position);
+        return contatoList.getContatos().get(position);
+    }
+
+    public void adicionaLista(ContatoEntity contatoEntity) {
+        contatoEntity.setId(contatoList.getContatos().size() + 1);
+        contatoList.getContatos().add(contatoEntity);
     }
 }

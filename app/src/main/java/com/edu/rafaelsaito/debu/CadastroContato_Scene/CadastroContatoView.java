@@ -10,6 +10,4 @@ public interface CadastroContatoView {
     void camera();
     void mapa();
     void salvar();
-    void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2);
-    void afterTextChanged(Editable editable);
 }

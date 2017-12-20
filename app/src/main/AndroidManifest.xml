@@ -11,16 +11,15 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Main_Scene.MainActivity"
-            android:theme="@style/AppThemeNoActionBar">
-
-        </activity>
+            android:theme="@style/AppThemeNoActionBar"></activity>
         <activity
             android:name=".ListaContatos_Scene.ListaContatosActivity"
             android:label="Lista de Contatos" />
         <activity
             android:name=".CadastroContato_Scene.CadastroContatoActivity"
             android:label="Novo Contato" />
-        <activity android:name=".SplashScreen.SplashScreenActivity"
+        <activity
+            android:name=".SplashScreen.SplashScreenActivity"
             android:theme="@style/AppThemeNoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,6 +27,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ContatoDetails.ContatoDetailActivity"></activity>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.edu.rafaelsaito.debu.fileprovider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
+        </provider>
+
     </application>
 
 </manifest>
